@@ -1,5 +1,11 @@
 # md-url-path
 
+[![npm version](https://badgen.net/npm/v/md-url-path)](https://www.npmjs.com/package/md-url-path)
+[![npm types](https://badgen.net/npm/types/md-url-path)](https://www.npmjs.com/package/md-url-path)
+[![npm weekly downloads](https://badgen.net/npm/dw/md-url-path)](https://www.npmjs.com/package/md-url-path)
+[![License](https://badgen.net/npm/license/md-url-path)](LICENSE)
+[![GitHub stars](https://badgen.net/github/stars/guoyunhe/md-url-path)](https://github.com/guoyunhe/md-url-path)
+
 Convert Markdown file paths into clean, directory-style URL paths.
 
 ## Install
