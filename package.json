@@ -1,6 +1,6 @@
 {
   "name": "md-url-path",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Convert Markdown file paths into clean URL paths.",
   "keywords": [
     "clean-urls",
