@@ -6,7 +6,7 @@
 [![License](https://badgen.net/npm/license/md-url-path)](LICENSE)
 [![GitHub stars](https://badgen.net/github/stars/guoyunhe/md-url-path)](https://github.com/guoyunhe/md-url-path)
 
-Convert Markdown file paths into clean, directory-style URL paths.
+Convert Markdown and MDX file paths into clean page URLs.
 
 ## Install
 
@@ -23,7 +23,13 @@ markdownPathToUrlPath('./docs/README.md');
 // './docs/'
 
 markdownPathToUrlPath('./docs/getting-started.md');
-// './docs/getting-started/'
+// './docs/getting-started'
+
+markdownPathToUrlPath('./docs/getting-started.mdx');
+// './docs/getting-started'
+
+markdownPathToUrlPath('./docs/getting-started.zh-CN.md');
+// './docs/getting-started'
 
 markdownPathToUrlPath('./docs/README.md#installation');
 // './docs/#installation'
@@ -55,8 +61,14 @@ const processor = remark().use(remarkLinkRewrite, {
 
 const result = await processor.process('[Guide](./docs/getting-started.md)');
 console.log(String(result));
-// [Guide](./docs/getting-started/)
+// [Guide](./docs/getting-started)
 ```
 
-The replacer runs for each link. `markdownPathToUrlPath` transforms Markdown
-file paths while leaving absolute URLs and other paths unchanged.
+The replacer runs for each link. `markdownPathToUrlPath` transforms Markdown and
+MDX file paths while leaving absolute URLs and other paths unchanged.
+
+`README` files point to their containing directory and keep the trailing slash,
+because that directory-style URL is the index page. Other files become
+extensionless paths without a trailing slash. Locale suffixes such as `.ja.md` or
+`.zh-CN.md` are dropped, because translations are served under a locale prefix
+that the current page already carries.

@@ -7,8 +7,8 @@ describe('markdownPathToUrlPath', () => {
     expect(markdownPathToUrlPath('./docs/README.md')).toBe('./docs/');
   });
 
-  test('maps other Markdown files to extensionless directory URLs', () => {
-    expect(markdownPathToUrlPath('./docs/getting-started.md')).toBe('./docs/getting-started/');
+  test('maps other Markdown files to extensionless paths without a trailing slash', () => {
+    expect(markdownPathToUrlPath('./docs/getting-started.md')).toBe('./docs/getting-started');
   });
 
   test('maps a root README.md to the current directory', () => {
@@ -21,8 +21,34 @@ describe('markdownPathToUrlPath', () => {
 
   test('preserves hash fragments on other Markdown paths', () => {
     expect(markdownPathToUrlPath('./docs/getting-started.md#setup')).toBe(
-      './docs/getting-started/#setup',
+      './docs/getting-started#setup',
     );
+  });
+
+  test('maps MDX files to extensionless paths', () => {
+    expect(markdownPathToUrlPath('./docs/getting-started.mdx')).toBe('./docs/getting-started');
+  });
+
+  test('maps README.mdx to its containing directory', () => {
+    expect(markdownPathToUrlPath('./docs/README.mdx')).toBe('./docs/');
+  });
+
+  test('drops locale suffixes from Markdown paths', () => {
+    expect(markdownPathToUrlPath('./docs/getting-started.ja.md')).toBe('./docs/getting-started');
+    expect(markdownPathToUrlPath('./docs/getting-started.zh-CN.md')).toBe('./docs/getting-started');
+  });
+
+  test('drops locale suffixes from MDX paths', () => {
+    expect(markdownPathToUrlPath('./docs/getting-started.ja.mdx')).toBe('./docs/getting-started');
+  });
+
+  test('drops locale suffixes from README paths', () => {
+    expect(markdownPathToUrlPath('./docs/README.zh.md')).toBe('./docs/');
+    expect(markdownPathToUrlPath('./docs/README.zh-CN.mdx#intro')).toBe('./docs/#intro');
+  });
+
+  test('keeps paths relative instead of adding a trailing slash', () => {
+    expect(markdownPathToUrlPath('../guide/start.md')).toBe('../guide/start');
   });
 
   test('leaves non-Markdown paths unchanged', () => {
